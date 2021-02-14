@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  app:
+    image: ghcr.io/jeremychauvet/terraform:0.14.6
+    volumes:
+      - /var/run/docker.sock:/var/run/docker-host.sock
+      - ..:/workspace
+      - ${HOME}/.aws/credentials:/home/vhugo/.aws/credentials
+    command: tail -f /dev/null
