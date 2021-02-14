@@ -1,3 +1,7 @@
-# template-showroom
+# AWS Symfony EC2 showroom
 
-This repository is a template to quickly start new showroom projects.
+Showroom to demonstrate how deploy Symfony website in production with EC2 instances.
+
+## Architecture
+
+![architecture](./docs/architecture.png)
