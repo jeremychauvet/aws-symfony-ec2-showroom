@@ -25,5 +25,6 @@ Installation of terraform v0.14.6 successful. To make this your default version,
 johndoe@DESKTOP-XXXXXXX:~/workspace/aws-symfony-ec2-showroom/infrastructure$ tfenv use 0.14.6
 Switching default version to v0.14.6
 Switching completed
-johndoe@DESKTOP-XXXXXXX:~/workspace/aws-symfony-ec2-showroom/infrastructure$ 
+johndoe@DESKTOP-XXXXXXX:~/workspace/aws-symfony-ec2-showroom/infrastructure$ terraform version
+Terraform v0.14.6
 ```
