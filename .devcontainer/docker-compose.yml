@@ -7,4 +7,5 @@ services:
       - /var/run/docker.sock:/var/run/docker-host.sock
       - ..:/workspace
       - ${HOME}/.aws/credentials:/home/vhugo/.aws/credentials
+      - ${HOME}/.ssh/:/home/vhugo/.ssh/
     command: tail -f /dev/null
