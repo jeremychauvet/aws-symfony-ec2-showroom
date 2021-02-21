@@ -12,4 +12,3 @@ variable "instance_type" {
   description = "Type of instance used."
   default     = "t3.micro"
 }
-
