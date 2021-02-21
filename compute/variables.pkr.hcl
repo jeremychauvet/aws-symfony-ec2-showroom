@@ -4,12 +4,12 @@ variable "aws_region" {
 }
 
 variable "source_ami" {
-  description = "Source AMI"
+  description = "Source AMI."
   default     = "ami-02ae530dacc099fc9"
 }
 
 variable "instance_type" {
-  description = "Type of instance used"
+  description = "Type of instance used."
   default     = "t3.micro"
 }
 
