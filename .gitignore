@@ -1,6 +1,7 @@
 # Terraform
 **/.terraform/*
 infrastructure/.terraform.lock.hcl
+infrastructure/*.log
 *.tfstate
 *.tfstate.*
 crash.log
