@@ -1,7 +1,7 @@
 # Common.
 
 variable "tags" {
-  type = map
+  type = map(any)
 }
 
 # Instance.

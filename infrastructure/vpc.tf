@@ -6,10 +6,10 @@ module "vpc" {
 
   cidr = "20.10.0.0/16"
 
-  azs                 = ["us-east-1a", "us-east-1b"]
-  private_subnets     = ["20.10.1.0/24", "20.10.2.0/24"]
-  public_subnets      = ["20.10.11.0/24", "20.10.12.0/24"]
-  database_subnets    = ["20.10.21.0/24", "20.10.22.0/24"]
+  azs              = ["us-east-1a", "us-east-1b"]
+  private_subnets  = ["20.10.1.0/24", "20.10.2.0/24"]
+  public_subnets   = ["20.10.11.0/24", "20.10.12.0/24"]
+  database_subnets = ["20.10.21.0/24", "20.10.22.0/24"]
   # elasticache_subnets = ["20.10.31.0/24", "20.10.32.0/24"]
 
   create_database_subnet_group = false
