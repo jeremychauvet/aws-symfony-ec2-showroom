@@ -12,3 +12,14 @@ variable "tags" {
     Project   = "MyOnlineBookStore"
   }
 }
+
+# Compute.
+variable "ami_id" {
+  description = "ID of AMI to use."
+  default     = "ami-0dd90801535a05267"
+}
+
+variable "instance_type" {
+  description = "Type of instance used."
+  default     = "c5.large"
+}
