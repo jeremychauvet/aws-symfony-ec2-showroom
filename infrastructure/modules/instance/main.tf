@@ -10,6 +10,10 @@ resource "aws_instance" "web" {
     encrypted   = true
     volume_size = var.instance_disk_size
   }
+
+  metadata_options {
+    http_tokens = "required"
+  }
 }
 
 # Monitoring.
