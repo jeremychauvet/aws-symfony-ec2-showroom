@@ -1,14 +1,9 @@
 # Terraform
 **/.terraform/*
-infrastructure/.terraform.lock.hcl
-infrastructure/*.log
-*.tfstate
-*.tfstate.*
-crash.log
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
+**.terraform.lock.hcl
+**.log
+**.tfstate
+**.tfstate.*
 
 # MacOS
 .DS_Store
