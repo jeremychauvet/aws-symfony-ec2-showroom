@@ -12,10 +12,10 @@ module "sg_http" {
 }
 
 # Instances
-module "instance" {
-  source = "./modules/instance"
-  vpc_id = module.vpc.vpc_id
-  subnet_id = module.vpc.private_subnets[0]
-  security_group = module.sg_http.this_security_group_id
-  tags = var.tags
-}
+// module "instance" {
+//   source = "./modules/instance"
+//   vpc_id = module.vpc.vpc_id
+//   subnet_id = module.vpc.private_subnets[0]
+//   security_group = module.sg_http.this_security_group_id
+//   tags = var.tags
+// }
