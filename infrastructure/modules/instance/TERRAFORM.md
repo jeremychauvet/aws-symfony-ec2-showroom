@@ -31,4 +31,3 @@ No Modules.
 | instance\_type | Type of instance used. | `string` | `"t3.micro"` | no |
 
 ## Outputs
-
