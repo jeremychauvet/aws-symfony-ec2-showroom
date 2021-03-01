@@ -13,7 +13,11 @@ build {
   provisioner "shell" {
       inline = [
         "DEBIAN_FRONTEND=noninteractive",
-        "sudo apt-get update"
+        "sudo apt-get update",
+        "sudo apt-get upgrade -y",
+        "sudo apt-get install apache2 apache2-bin apache2-utils -y",
+        "sudo apt-get clean",
+        "sudo rm -rf /var/lib/apt/lists/"
       ]
     }
 }
