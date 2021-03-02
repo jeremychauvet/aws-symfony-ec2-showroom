@@ -4,6 +4,12 @@ resource "aws_lb" "http" {
   subnets                          = module.vpc.public_subnets
   enable_cross_zone_load_balancing = true
   tags                             = var.tags
+
+  access_logs {
+    bucket  = aws_s3_bucket.lb_access_logs.bucket
+    prefix  = "lb-logs"
+    enabled = true
+  }
 }
 
 resource "aws_lb_target_group" "http" {
