@@ -10,3 +10,22 @@ module "sg_http" {
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 }
+
+resource "aws_launch_template" "symfony" {
+  image_id      = var.ami_id
+  instance_type = var.instance_type
+
+  instance_market_options {
+    market_type = "spot"
+  }
+
+  tag_specifications {
+    resource_type = "instance"
+    tags          = var.tags
+  }
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+}
