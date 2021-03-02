@@ -6,6 +6,15 @@ resource "aws_placement_group" "cluster" {
 resource "aws_launch_template" "symfony" {
   image_id      = var.ami_id
   instance_type = var.instance_type
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = var.tags
+  }
+
+  metadata_options {
+    http_tokens = "required"
+  }
 }
 
 resource "aws_autoscaling_group" "aza" {
