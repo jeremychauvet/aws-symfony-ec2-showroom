@@ -24,12 +24,12 @@ module "vpc" {
   enable_s3_endpoint = true
 
   # VPC endpoint for SSM.
-  enable_ssm_endpoint              = true
+  enable_ssm_endpoint              = false
   ssm_endpoint_private_dns_enabled = true
   ssm_endpoint_security_group_ids  = [module.sg_http.this_security_group_id]
 
   # VPC Endpoint for EC2.
-  enable_ec2_endpoint              = true
+  enable_ec2_endpoint              = false
   ec2_endpoint_private_dns_enabled = true
   ec2_endpoint_security_group_ids  = [module.sg_http.this_security_group_id]
 
