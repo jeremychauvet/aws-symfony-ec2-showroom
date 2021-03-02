@@ -3,28 +3,34 @@ resource "aws_placement_group" "cluster" {
   strategy = "cluster"
 }
 
-resource "aws_launch_template" "symfony" {
-  image_id      = var.ami_id
-  instance_type = var.instance_type
+// data "aws_ami" "symfony" {
+//   executable_users = ["self"]
+//   most_recent      = true
+//   owners           = ["self"]
+//   name_regex       = "^symfony-web-image"
 
-  tag_specifications {
-    resource_type = "instance"
-    tags = var.tags
-  }
+//   filter {
+//     name   = "name"
+//     values = ["symfony-web-image"]
+//   }
 
-  metadata_options {
-    http_tokens = "required"
-  }
-}
+//   filter {
+//     name   = "root-device-type"
+//     values = ["ebs"]
+//   }
+
+//   filter {
+//     name   = "virtualization-type"
+//     values = ["hvm"]
+//   }
+// }
 
 resource "aws_autoscaling_group" "aza" {
-  name                      = "dev.aza.aws_autoscaling_group"
-  max_size                  = 2
-  min_size                  = 1
-  health_check_grace_period = 300
-  health_check_type         = "ELB"
-  desired_capacity          = 1
-  placement_group           = aws_placement_group.cluster.id
+  name            = "dev.aza.aws_autoscaling_group"
+  max_size        = 2
+  min_size        = 1
+  force_delete    = true
+  placement_group = aws_placement_group.cluster.id
 
   launch_template {
     id      = aws_launch_template.symfony.id
@@ -33,14 +39,17 @@ resource "aws_autoscaling_group" "aza" {
 
   availability_zones = ["${var.aws_region}a"]
 
-  initial_lifecycle_hook {
-    name                 = "foobar"
-    default_result       = "CONTINUE"
-    heartbeat_timeout    = 2000
-    lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
+  timeouts {
+    delete = "5m"
   }
 
-  timeouts {
-    delete = "15m"
+  lifecycle {
+    ignore_changes = [load_balancers, target_group_arns]
   }
+}
+
+# Create a new load balancer attachment
+resource "aws_autoscaling_attachment" "asg_attachment_nlb" {
+  autoscaling_group_name = aws_autoscaling_group.aza.id
+  elb                    = aws_lb.http.id
 }
