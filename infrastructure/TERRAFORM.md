@@ -26,6 +26,7 @@
 | [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
 | [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) |
 | [aws_placement_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/placement_group) |
+| [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
 
 ## Inputs
 
