@@ -1,6 +1,8 @@
 resource "aws_s3_bucket" "lb_access_logs" {
-  bucket = "aws_lb_http_access_logs"
+  bucket = "aws-lb-http-access-logs-myonlinebookstore"
   acl    = "private"
+
+  policy = file("./policies/dev.nlb-s3.policy.json")
 
   server_side_encryption_configuration {
     rule {
