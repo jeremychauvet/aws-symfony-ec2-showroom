@@ -5,11 +5,12 @@ resource "aws_lb" "http" {
   enable_cross_zone_load_balancing = true
   tags                             = var.tags
 
-  access_logs {
-    bucket  = aws_s3_bucket.lb_access_logs.bucket
-    prefix  = "lb-logs"
-    enabled = true
-  }
+  #checkov:skip=CKV_AWS_91:Ensure the ELBv2 (Application/Network) has access logging enabled
+  // access_logs {
+  //   bucket  = aws_s3_bucket.lb_access_logs.bucket
+  //   prefix  = "lb-logs"
+  //   enabled = true
+  // }
 }
 
 resource "aws_lb_target_group" "http" {
@@ -19,4 +20,15 @@ resource "aws_lb_target_group" "http" {
   vpc_id   = module.vpc.vpc_id
 }
 
-# TODO: add target group.
+resource "aws_lb_listener" "front_end" {
+  load_balancer_arn = aws_lb.http.arn
+  port              = "80"
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.http.arn
+  }
+  #checkov:skip=CKV_AWS_2:Ensure ALB protocol is HTTPS
+  #checkov:skip=CKV_AWS_103:Ensure that load balancer is using TLS 1.2
+}
