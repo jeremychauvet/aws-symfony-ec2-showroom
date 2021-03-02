@@ -21,7 +21,7 @@ module "vpc" {
   enable_nat_gateway = false
 
   # VPC endpoint for S3.
-  enable_s3_endpoint = true
+  enable_s3_endpoint = false
 
   # VPC endpoint for SSM.
   enable_ssm_endpoint              = false
