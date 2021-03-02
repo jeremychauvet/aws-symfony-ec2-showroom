@@ -3,10 +3,10 @@
 init:
 	terraform init
 
-plan: init
+plan: init validate
 	terraform plan
 
-apply:
+apply: init validate
 	terraform apply -auto-approve
 
 validate:
