@@ -21,9 +21,11 @@
 
 | Name |
 |------|
+| [aws_autoscaling_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_attachment) |
 | [aws_autoscaling_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) |
 | [aws_launch_template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) |
 | [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
+| [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) |
 | [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) |
 | [aws_placement_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/placement_group) |
 | [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
@@ -32,7 +34,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| ami\_id | ID of AMI to use. | `string` | `"ami-0dd90801535a05267"` | no |
+| ami\_id | ID of AMI to use. | `string` | `"ami-0064d21c3ab673bf8"` | no |
 | aws\_region | AWS region where AMI can be used. | `string` | `"us-east-1"` | no |
 | instance\_type | Type of instance used. | `string` | `"c5.large"` | no |
 | tags | Tags used to ABAC and billing. | `map(string)` | <pre>{<br>  "CreatedBy": "Terraform",<br>  "Project": "MyOnlineBookStore"<br>}</pre> | no |
@@ -41,3 +43,4 @@
 
 | Name | Description |
 |------|-------------|
+| elb\_dns\_name | The DNS name of the load balancer. |
