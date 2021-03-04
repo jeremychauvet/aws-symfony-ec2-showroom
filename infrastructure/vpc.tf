@@ -46,3 +46,9 @@ module "vpc" {
 
   tags = var.tags
 }
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = module.vpc.vpc_id
+
+  tags = var.tags
+}
