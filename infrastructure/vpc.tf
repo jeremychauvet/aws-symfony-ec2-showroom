@@ -13,12 +13,11 @@ module "vpc" {
   # elasticache_subnets = ["20.10.31.0/24", "20.10.32.0/24"]
 
   create_database_subnet_group = false
+  create_igw                   = false
 
   # Used for private endpoints.
   enable_dns_hostnames = true
   enable_dns_support   = true
-
-  enable_nat_gateway = false
 
   # VPC endpoint for S3.
   enable_s3_endpoint = false
@@ -49,6 +48,14 @@ module "vpc" {
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = module.vpc.vpc_id
+  tags   = var.tags
+}
 
-  tags = var.tags
+resource "aws_eip" "eip_natgateway_aza" {
+  vpc = true
+}
+
+resource "aws_nat_gateway" "natgateway_aza" {
+  allocation_id = aws_eip.eip_natgateway_aza.id
+  subnet_id     = module.vpc.private_subnets[0]
 }
