@@ -23,3 +23,9 @@ variable "instance_type" {
   description = "Type of instance used."
   default     = "c5.large"
 }
+
+# DNS.
+variable "route53_zone" {
+  description = "Zone managed by Route 53"
+  default     = "dfnprdxcl.de."
+}
