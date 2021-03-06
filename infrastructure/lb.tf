@@ -1,7 +1,7 @@
 resource "aws_lb" "http" {
   name               = "dev-http-elb"
   load_balancer_type = "application"
-  subnets            = module.vpc.public_subnets
+  subnets            = module.vpc.private_subnets
   security_groups    = [module.sg_http.this_security_group_id]
   tags               = var.tags
 

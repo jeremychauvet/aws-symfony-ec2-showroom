@@ -46,3 +46,5 @@
 | Name | Description |
 |------|-------------|
 | elb\_dns\_name | The DNS name of the load balancer. |
+| natgw\_ids\_aza | NAT gateway AZa |
+| private\_route\_table\_aza | Private route table AZa |
