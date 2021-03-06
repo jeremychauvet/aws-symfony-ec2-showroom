@@ -30,6 +30,8 @@
 | [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) |
 | [aws_nat_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway) |
 | [aws_placement_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/placement_group) |
+| [aws_route53_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) |
+| [aws_route53_zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) |
 | [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
 
 ## Inputs
@@ -39,6 +41,7 @@
 | ami\_id | ID of AMI to use. | `string` | `"ami-0064d21c3ab673bf8"` | no |
 | aws\_region | AWS region where AMI can be used. | `string` | `"us-east-1"` | no |
 | instance\_type | Type of instance used. | `string` | `"c5.large"` | no |
+| route53\_zone | Zone managed by Route 53 | `string` | `"dfnprdxcl.de."` | no |
 | tags | Tags used to ABAC and billing. | `map(string)` | <pre>{<br>  "CreatedBy": "Terraform",<br>  "Project": "MyOnlineBookStore"<br>}</pre> | no |
 
 ## Outputs
