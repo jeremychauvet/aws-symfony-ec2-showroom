@@ -15,6 +15,7 @@ module "vpc" {
   create_igw = true
 
   # NAT gateways.
+  enable_nat_gateway     = true
   one_nat_gateway_per_az = true
   nat_gateway_tags       = var.tags
 
@@ -24,33 +25,3 @@ module "vpc" {
 
   tags = var.tags
 }
-
-// resource "aws_route_table" "main" {
-//   vpc_id = module.vpc.vpc_id
-
-//   route {
-//     cidr_block = "0.0.0.0/0"
-//     gateway_id = aws_internet_gateway.main.id
-//   }
-
-//   tags = var.tags
-// }
-
-// resource "aws_route_table_association" "a" {
-//   subnet_id      = module.vpc.private_subnets[0]
-//   route_table_id = aws_route_table.main.id
-// }
-
-// resource "aws_internet_gateway" "main" {
-//   vpc_id = module.vpc.vpc_id
-//   tags   = var.tags
-// }
-
-// resource "aws_eip" "eip_natgateway_aza" {
-//   vpc = true
-// }
-
-// resource "aws_nat_gateway" "natgateway_aza" {
-//   allocation_id = aws_eip.eip_natgateway_aza.id
-//   subnet_id     = module.vpc.private_subnets[0]
-// }
