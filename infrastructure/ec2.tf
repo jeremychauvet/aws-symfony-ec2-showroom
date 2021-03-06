@@ -19,6 +19,11 @@ resource "aws_launch_template" "symfony" {
     market_type = "spot"
   }
 
+  network_interfaces {
+    associate_public_ip_address = false
+    security_groups             = [module.sg_http.this_security_group_id]
+  }
+
   tag_specifications {
     resource_type = "instance"
     tags          = var.tags
