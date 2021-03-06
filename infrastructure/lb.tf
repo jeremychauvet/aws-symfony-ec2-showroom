@@ -19,6 +19,11 @@ resource "aws_lb_target_group" "http" {
   protocol    = "HTTP"
   target_type = "instance"
   vpc_id      = module.vpc.vpc_id
+
+  health_check {
+    port     = 80
+    protocol = "HTTP"
+  }
 }
 
 resource "aws_lb_listener" "front_end" {
