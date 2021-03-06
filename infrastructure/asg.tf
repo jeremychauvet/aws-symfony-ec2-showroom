@@ -49,7 +49,7 @@ resource "aws_autoscaling_group" "aza" {
 }
 
 # Create a new load balancer attachment
-resource "aws_autoscaling_attachment" "asg_attachment_nlb" {
+resource "aws_autoscaling_attachment" "asg_attachment_alb" {
   autoscaling_group_name = aws_autoscaling_group.aza.id
-  elb                    = aws_lb.http.id
+  alb_target_group_arn   = aws_lb_target_group.http.arn
 }
