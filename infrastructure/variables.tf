@@ -16,7 +16,7 @@ variable "tags" {
 # Compute.
 variable "ami_id" {
   description = "ID of AMI to use."
-  default     = "ami-0064d21c3ab673bf8"
+  default     = "ami-0b045a8b52af16066"
 }
 
 variable "instance_type" {
