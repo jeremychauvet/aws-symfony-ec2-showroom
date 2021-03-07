@@ -1,6 +1,6 @@
 .PHONY: build validate
 
-build:
+build: validate
 	packer build .
 
 validate:
