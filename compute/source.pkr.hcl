@@ -2,9 +2,9 @@ source "amazon-ebs" "symfony" {
   ami_name      = "symfony-web-image"
   ssh_username  = "ubuntu"
   encrypt_boot  = true
-  instance_type = var.instance_type
-  source_ami    = var.source_ami
-  region        = var.aws_region
+  instance_type = "c5.large"
+  source_ami    = "ami-02ae530dacc099fc9"
+  region        = "us-east-1"
 }
 
 build {
@@ -15,9 +15,8 @@ build {
         "DEBIAN_FRONTEND=noninteractive",
         "sudo apt-get update",
         "sudo apt-get upgrade -y",
-        "sudo apt-get install apache2 apache2-bin apache2-utils -y",
-        "sudo apt-get clean",
-        "sudo rm -rf /var/lib/apt/lists/"
+        "sudo apt-get install apache2 apache2-bin apache2-utils ec2-instance-connect -y",
+        "sudo apt-get clean"
       ]
     }
 }
