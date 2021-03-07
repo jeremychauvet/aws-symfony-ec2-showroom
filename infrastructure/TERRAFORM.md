@@ -23,6 +23,9 @@
 |------|
 | [aws_autoscaling_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_attachment) |
 | [aws_autoscaling_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) |
+| [aws_ebs_default_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_default_kms_key) |
+| [aws_ebs_encryption_by_default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_encryption_by_default) |
+| [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) |
 | [aws_launch_template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) |
 | [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
 | [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) |
@@ -36,7 +39,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| ami\_id | ID of AMI to use. | `string` | `"ami-0064d21c3ab673bf8"` | no |
+| ami\_id | ID of AMI to use. | `string` | `"ami-0b045a8b52af16066"` | no |
 | aws\_region | AWS region where AMI can be used. | `string` | `"us-east-1"` | no |
 | instance\_type | Type of instance used. | `string` | `"c5.large"` | no |
 | route53\_zone | Zone managed by Route 53 | `string` | `"dfnprdxcl.de."` | no |

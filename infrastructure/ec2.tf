@@ -39,3 +39,7 @@ resource "aws_launch_template" "symfony" {
     http_tokens   = "required"
   }
 }
+
+resource "aws_ebs_encryption_by_default" "main" {
+  enabled = true
+}
