@@ -8,10 +8,15 @@ module "sg_http" {
   description = "Security group with HTTP ports open for everybody (IPv4 CIDR), egress ports are all world open"
   vpc_id      = module.vpc.vpc_id
 
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-
+  # Ingress (inbound).
+  ingress_cidr_blocks              = ["0.0.0.0/0"]
   computed_ingress_rules           = ["ssh-tcp", "http-80-tcp"]
   number_of_computed_ingress_rules = 2
+
+  # Egress (outbound).
+  egress_cidr_blocks              = ["0.0.0.0/0"]
+  computed_egress_rules           = ["ssh-tcp", "http-80-tcp"]
+  number_of_computed_egress_rules = 2
 }
 
 resource "aws_launch_template" "symfony" {
