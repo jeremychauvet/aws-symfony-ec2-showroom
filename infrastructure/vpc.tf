@@ -11,6 +11,9 @@ module "vpc" {
   public_subnets   = ["20.10.11.0/24", "20.10.12.0/24"]
   database_subnets = ["20.10.21.0/24", "20.10.22.0/24"]
 
+  # Do not auto-assign public IP on launch.
+  map_public_ip_on_launch = false
+
   # Internet gateway.
   create_igw = true
 
