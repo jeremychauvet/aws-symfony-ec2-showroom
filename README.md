@@ -13,6 +13,6 @@ Showroom to demonstrate how deploy Symfony website in production with EC2 instan
 Instead of use tfenv tool to manage Terraform version used to develop, we use a specific Docker image with Terraform, Git and SSH installed.
 You *must* install this [extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) to develop on this repository.
 
-### Find Ubuntu AMI
+### Documentation
 
-Please use this [link](https://cloud-images.ubuntu.com/locator/ec2/)
+- [Enable access logs for your Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html)
