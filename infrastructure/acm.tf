@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "cert" {
-  domain_name       = var.route53_zone
+  domain_name       = aws_route53_record.www.name
   validation_method = "DNS"
 
   tags = var.tags
