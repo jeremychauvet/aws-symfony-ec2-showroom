@@ -10,12 +10,12 @@ module "sg_http" {
 
   # Ingress (inbound).
   ingress_cidr_blocks              = ["0.0.0.0/0"]
-  computed_ingress_rules           = ["ssh-tcp", "http-80-tcp"]
+  computed_ingress_rules           = ["ssh-tcp", "https-443-tcp"]
   number_of_computed_ingress_rules = 2
 
   # Egress (outbound).
   egress_cidr_blocks              = ["0.0.0.0/0"]
-  computed_egress_rules           = ["ssh-tcp", "http-80-tcp"]
+  computed_egress_rules           = ["ssh-tcp", "https-443-tcp"]
   number_of_computed_egress_rules = 2
 }
 
