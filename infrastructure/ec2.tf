@@ -29,9 +29,7 @@ resource "aws_launch_template" "symfony" {
   }
 
   network_interfaces {
-    #checkov:skip=CKV_AWS_88:EC2 instance should not have public IP
-    associate_public_ip_address = true
-    security_groups             = [module.sg_http.this_security_group_id]
+    security_groups = [module.sg_http.this_security_group_id]
   }
 
   tag_specifications {
