@@ -18,3 +18,7 @@ output "natgw_ids_aza" {
   description = "NAT gateway AZa"
   value       = module.vpc.natgw_ids[0]
 }
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}

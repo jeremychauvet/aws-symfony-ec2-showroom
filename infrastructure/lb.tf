@@ -5,12 +5,11 @@ resource "aws_lb" "http" {
   security_groups    = [module.sg_http.this_security_group_id]
   tags               = var.tags
 
-  #checkov:skip=CKV_AWS_91:Ensure the ELBv2 (Application/Network) has access logging enabled
-  // access_logs {
-  //   bucket  = aws_s3_bucket.lb_access_logs.bucket
-  //   prefix  = "lb-logs"
-  //   enabled = true
-  // }
+  access_logs {
+    bucket  = aws_s3_bucket.lb_access_logs.bucket
+    prefix  = "lb"
+    enabled = true
+  }
 }
 
 resource "aws_lb_target_group" "http" {

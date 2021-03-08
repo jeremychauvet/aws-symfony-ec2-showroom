@@ -1,8 +1,8 @@
-resource "aws_s3_bucket" "lb_access_logs" {
-  bucket = "aws-lb-http-access-logs-myonlinebookstore"
-  acl    = "private"
+data "aws_elb_service_account" "main" {}
 
-  policy = file("./policies/dev.nlb-s3.policy.json")
+resource "aws_s3_bucket" "lb_access_logs" {
+  bucket = "aws-lb-access-logs-myonlinebookstore"
+  acl    = "private"
 
   server_side_encryption_configuration {
     rule {
@@ -20,4 +20,9 @@ resource "aws_s3_bucket" "lb_access_logs" {
 
   #checkov:skip=CKV_AWS_52:Ensure S3 bucket has MFA delete enabled
   #checkov:skip=CKV_AWS_18:Ensure the S3 bucket has access logging enabled
+}
+
+resource "aws_s3_bucket_policy" "lb_access_logs" {
+  bucket = aws_s3_bucket.lb_access_logs.id
+  policy = templatefile("./policies/dev.nlb-s3.policy.json.tpl", { aws_region = var.aws_region, elb_account_arn = data.aws_elb_service_account.main.arn, aws_account_id = data.aws_caller_identity.current.account_id })
 }
