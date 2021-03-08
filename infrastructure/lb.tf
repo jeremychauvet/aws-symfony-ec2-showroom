@@ -13,7 +13,7 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "aza" {
-  name        = "dev-http-alb-aza-tg"
+  name        = "dev-main-alb-aza-tg"
   port        = 80
   protocol    = "HTTP"
   target_type = "instance"
@@ -25,18 +25,18 @@ resource "aws_lb_target_group" "aza" {
   }
 }
 
-resource "aws_lb_target_group" "azb" {
-  name        = "dev-http-alb-azb-tg"
-  port        = 80
-  protocol    = "HTTP"
-  target_type = "instance"
-  vpc_id      = module.vpc.vpc_id
+// resource "aws_lb_target_group" "azb" {
+//   name        = "dev-main-alb-azb-tg"
+//   port        = 80
+//   protocol    = "HTTP"
+//   target_type = "instance"
+//   vpc_id      = module.vpc.vpc_id
 
-  health_check {
-    port     = 80
-    protocol = "HTTP"
-  }
-}
+//   health_check {
+//     port     = 80
+//     protocol = "HTTP"
+//   }
+// }
 
 resource "aws_lb_listener" "front_end" {
   #checkov:skip=CKV_AWS_2:Ensure ALB protocol is HTTPS
@@ -51,27 +51,27 @@ resource "aws_lb_listener" "front_end" {
   }
 }
 
-resource "aws_lb_listener_rule" "front_end_routing" {
-  listener_arn = aws_lb_listener.front_end.arn
-  priority     = 100
+// resource "aws_lb_listener_rule" "aza_routing" {
+//   listener_arn = aws_lb_listener.aza.arn
+//   priority     = 100
 
-  action {
-    type = "forward"
-    forward {
-      target_group {
-        arn    = aws_lb_target_group.aza.arn
-        weight = 50
-      }
-      target_group {
-        arn    = aws_lb_target_group.azb.arn
-        weight = 50
-      }
-    }
-  }
+//   action {
+//     type = "forward"
+//     forward {
+//       target_group {
+//         arn    = aws_lb_target_group.aza.arn
+//         weight = 50
+//       }
+//       target_group {
+//         arn    = aws_lb_target_group.azb.arn
+//         weight = 50
+//       }
+//     }
+//   }
 
-  condition {
-    host_header {
-      values = [aws_route53_record.www.name]
-    }
-  }
-}
+//   condition {
+//     host_header {
+//       values = [aws_route53_record.www.name]
+//     }
+//   }
+// }
