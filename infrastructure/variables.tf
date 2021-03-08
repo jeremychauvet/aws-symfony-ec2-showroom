@@ -27,5 +27,5 @@ variable "instance_type" {
 # DNS.
 variable "route53_zone" {
   description = "Zone managed by Route 53"
-  default     = "dfnprdxcl.de."
+  default     = "dfnprdxcl.de"
 }

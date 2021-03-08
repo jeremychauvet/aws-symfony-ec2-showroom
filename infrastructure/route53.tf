@@ -1,5 +1,5 @@
 data "aws_route53_zone" "primary" {
-  name = var.route53_zone
+  name = "${var.route53_zone}."
 }
 
 # ELB alias.
