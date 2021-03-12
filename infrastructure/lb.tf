@@ -2,7 +2,7 @@ resource "aws_lb" "main" {
   name               = "dev-main-alb"
   load_balancer_type = "application"
   subnets            = module.vpc.public_subnets
-  security_groups    = [module.sg_http.this_security_group_id]
+  security_groups    = [module.sg_https.this_security_group_id]
   tags               = var.tags
 
   access_logs {

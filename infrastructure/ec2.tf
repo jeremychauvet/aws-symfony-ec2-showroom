@@ -1,11 +1,10 @@
 # Security groups
-## HTTP
-module "sg_http" {
+module "sg_https" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "3.18.0"
 
-  name        = "dev.allow-http.sg"
-  description = "Security group with HTTP ports open for everybody (IPv4 CIDR), egress ports are all world open"
+  name        = "dev.allow-https.sg"
+  description = "Security group with HTTPS ports open for everybody (IPv4 CIDR), egress ports are all world open"
   vpc_id      = module.vpc.vpc_id
 
   # Ingress (inbound).
@@ -29,7 +28,7 @@ resource "aws_launch_template" "symfony" {
   }
 
   network_interfaces {
-    security_groups = [module.sg_http.this_security_group_id]
+    security_groups = [module.sg_https.this_security_group_id]
   }
 
   tag_specifications {
