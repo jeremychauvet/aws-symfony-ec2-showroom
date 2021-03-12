@@ -17,7 +17,7 @@ resource "aws_s3_bucket" "lb_access_logs" {
   }
 
   force_destroy = true
-  tags = var.tags
+  tags          = var.tags
 
   #checkov:skip=CKV_AWS_52:Ensure S3 bucket has MFA delete enabled
   #checkov:skip=CKV_AWS_18:Ensure the S3 bucket has access logging enabled
