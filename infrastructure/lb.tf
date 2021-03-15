@@ -39,7 +39,6 @@ resource "aws_lb_target_group" "aza" {
 // }
 
 resource "aws_lb_listener" "front_end" {
-  #checkov:skip=CKV_AWS_2:Ensure ALB protocol is HTTPS
   #checkov:skip=CKV_AWS_103:Ensure that load balancer is using TLS 1.2
   load_balancer_arn = aws_lb.main.arn
   port              = "443"
