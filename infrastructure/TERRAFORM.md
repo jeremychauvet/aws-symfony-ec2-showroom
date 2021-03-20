@@ -14,7 +14,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| sg_https | terraform-aws-modules/security-group/aws | 3.18.0 |
+| sg_http | terraform-aws-modules/security-group/aws | 3.18.0 |
 | vpc | terraform-aws-modules/vpc/aws | 2.77.0 |
 
 ## Resources
