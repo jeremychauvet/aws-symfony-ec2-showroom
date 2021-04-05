@@ -16,7 +16,6 @@ variable "tags" {
 # Compute.
 variable "ami_id" {
   description = "ID of AMI to use."
-  default     = "ami-0b045a8b52af16066"
 }
 
 variable "instance_type" {
@@ -27,5 +26,4 @@ variable "instance_type" {
 # DNS.
 variable "route53_zone" {
   description = "Zone managed by Route 53"
-  default     = "dfnprdxcl.de"
 }

@@ -1,0 +1,2 @@
+route53_zone = "PLEASE_CHANGE_ME"
+ami_id = "PLEASE_CHANGE_ME"

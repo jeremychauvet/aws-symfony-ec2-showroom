@@ -4,6 +4,7 @@
 **.log
 **.tfstate
 **.tfstate.*
+**.tfenv
 
 # MacOS
 .DS_Store
