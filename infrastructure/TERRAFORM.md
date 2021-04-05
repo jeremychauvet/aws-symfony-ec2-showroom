@@ -44,10 +44,10 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| ami\_id | ID of AMI to use. | `string` | `"ami-0b045a8b52af16066"` | no |
+| ami\_id | ID of AMI to use. | `any` | n/a | yes |
+| route53\_zone | Zone managed by Route 53 | `any` | n/a | yes |
 | aws\_region | AWS region where AMI can be used. | `string` | `"us-east-1"` | no |
 | instance\_type | Type of instance used. | `string` | `"c5.large"` | no |
-| route53\_zone | Zone managed by Route 53 | `string` | `"dfnprdxcl.de"` | no |
 | tags | Tags used to ABAC and billing. | `map(string)` | <pre>{<br>  "CreatedBy": "Terraform",<br>  "Project": "MyOnlineBookStore"<br>}</pre> | no |
 
 ## Outputs
