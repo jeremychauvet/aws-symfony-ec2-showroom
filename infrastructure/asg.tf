@@ -6,7 +6,7 @@ resource "aws_placement_group" "cluster" {
 # AZa.
 resource "aws_autoscaling_group" "aza" {
   name                 = "dev.aza.aws_autoscaling_group"
-  max_size             = 2
+  max_size             = 4
   min_size             = 1
   force_delete         = true
   placement_group      = aws_placement_group.cluster.id
