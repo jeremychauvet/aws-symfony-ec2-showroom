@@ -22,3 +22,7 @@ output "natgw_ids_aza" {
 output "account_id" {
   value = data.aws_caller_identity.current.account_id
 }
+
+output "ami_id" {
+  value = data.aws_ami.symfony_web_image.id
+}

@@ -19,7 +19,8 @@ module "sg_http" {
 }
 
 resource "aws_launch_template" "symfony" {
-  image_id      = var.ami_id
+  //image_id = var.ami_id
+  image_id      = data.aws_ami.symfony_web_image.id
   instance_type = var.instance_type
   key_name      = "symfony"
 
@@ -44,4 +45,25 @@ resource "aws_launch_template" "symfony" {
 
 resource "aws_ebs_encryption_by_default" "main" {
   enabled = true
+}
+
+data "aws_ami" "symfony_web_image" {
+  most_recent = true
+  owners      = ["self"]
+  name_regex  = "^symfony-web-image"
+
+  filter {
+    name   = "name"
+    values = ["symfony-web-image"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
