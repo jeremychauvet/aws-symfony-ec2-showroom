@@ -32,6 +32,16 @@ build {
   provisioner "ansible" {
     playbook_file = "playbook.yml"
   }
+
+  provisioner "file" {
+    source = "vhost.conf"
+    destination = "/etc/apache2/sites-enabled/"
+  }
+
+  provisioner "file" {
+    source = ".env"
+    destination = "/var/www/html/"
+  }
 }
 
 // source "docker" "qa" {
@@ -47,7 +57,7 @@ build {
 //     playbook_file = "playbook.yml"
 //   }
 
-//   provisioner "apache-vhost" {
+//   provisioner "file" {
 //     source = "app.tar.gz"
 //     destination = "/tmp/app.tar.gz"
 //   }
