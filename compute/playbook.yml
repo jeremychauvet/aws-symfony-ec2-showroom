@@ -1,6 +1,6 @@
 ---
 - name: 'Provision AMI'
-  hosts: localhost
+  hosts: default
   vars:
     app_version: 1.0.0
     user: ubuntu
@@ -16,9 +16,11 @@
 
     - name: Add PHP repository
       command: add-apt-repository ppa:ondrej/php
+      become: true
 
     - name: Refresh caches
       command: apt-get update
+      become: true
 
     - name: Install packages
       command: apt-get --fix-broken install -yf {{ item }}
@@ -33,17 +35,20 @@
         - php7.4-mysql
         - php7.4-intl
         - unzip
+      become: true
 
     - name: Download Composer
       command: curl -sS https://getcomposer.org/installer -o composer-setup.php
 
     - name: Install Composer
       command: php composer-setup.php --install-dir=/usr/local/bin --filename=composer && rm -f composer-setup.php
+      become: true
 
     - name: Remove default Apache file
       file:
         path: /var/www/html/index.html
         state: absent
+      become: true
 
     - name: Extract sources into /var/www/html
       unarchive:
@@ -56,15 +61,8 @@
       copy:
         src: "/tmp/template-symfony-{{ app_version }}/web/"
         dest: /var/www/html
-
-    - name: Change folder ownership, group and permissions
-      file:
-        path: /var/www/html
-        state: directory
-        owner: "{{ user }}"
-        group: "{{ user }}"
-        mode: '0644'
-        recurse: yes
+        remote_src: yes
+      become: true
 
     - name: Create default .env
       file:
@@ -73,6 +71,7 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: '0644'
+      become: true
 
     - name: Create cache folder to avoid create errors
       file:
@@ -82,8 +81,20 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: '0644'
+      become: true
 
     - name: Download and installs all libs and dependencies outlined in the composer.lock
       composer:
         command: install
         working_dir: /var/www/html
+      become: true
+
+    - name: Change folder ownership, group and permissions
+      file:
+        path: /var/www/html
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0644'
+        recurse: yes
+      become: true
