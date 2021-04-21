@@ -1,10 +1,9 @@
 ---
 - name: 'Provision AMI'
-  hosts: default
-  user: vhugo
-  gather_facts: no
+  hosts: localhost
   vars:
     app_version: 1.0.0
+    user: ubuntu
 
   tasks:
     - name: Add package software-properties-common
@@ -17,11 +16,9 @@
 
     - name: Add PHP repository
       command: add-apt-repository ppa:ondrej/php
-      become: true
 
     - name: Refresh caches
       command: apt-get update
-      become: true
 
     - name: Install packages
       command: apt-get --fix-broken install -yf {{ item }}
@@ -36,93 +33,57 @@
         - php7.4-mysql
         - php7.4-intl
         - unzip
-      become: true
 
     - name: Download Composer
       command: curl -sS https://getcomposer.org/installer -o composer-setup.php
 
     - name: Install Composer
       command: php composer-setup.php --install-dir=/usr/local/bin --filename=composer && rm -f composer-setup.php
-      become: true
-
-    - name: Download sources
-      get_url:
-        url: "https://github.com/jeremychauvet/template-symfony/archive/refs/tags/{{ app_version }}.zip"
-        dest: /tmp/sources.zip
 
     - name: Remove default Apache file
       file:
         path: /var/www/html/index.html
         state: absent
-      become: true
-
-    - name: Create temporary folder
-      file:
-        path: /tmp/sources
-        state: directory
-        recurse: yes
-        owner: ubuntu
-        group: ubuntu
-        mode: '0644'
-      become: true
 
     - name: Extract sources into /var/www/html
       unarchive:
-        src: /tmp/sources.zip
-        dest: /tmp/sources
-      become: true
-
-    - name: DEBUG
-      command: ls -l /tmp/sources
-      register: debug1
-      become: true
-
-    - debug: msg="{{ debug1.stdout }}"
+        src: "https://github.com/jeremychauvet/template-symfony/archive/refs/tags/{{ app_version }}.zip"
+        dest: /tmp/
+        remote_src: yes
+        owner: "{{ user }}"
 
     - name: Deploy sources to /var/www/html
       copy:
-        src: "/tmp/sources/template-symfony-{{ app_version }}/web/**"
+        src: "/tmp/template-symfony-{{ app_version }}/web/"
         dest: /var/www/html
-      become: true
 
     - name: Change folder ownership, group and permissions
       file:
         path: /var/www/html
         state: directory
-        owner: ubuntu
-        group: ubuntu
+        owner: "{{ user }}"
+        group: "{{ user }}"
         mode: '0644'
         recurse: yes
-      become: true
 
     - name: Create default .env
       file:
         path: /var/www/html/.env
         state: touch
-        owner: ubuntu
-        group: ubuntu
+        owner: "{{ user }}"
+        group: "{{ user }}"
         mode: '0644'
-      become: true
 
     - name: Create cache folder to avoid create errors
       file:
         path: /var/www/html/var/cache
         state: directory
         recurse: yes
-        owner: ubuntu
-        group: ubuntu
+        owner: "{{ user }}"
+        group: "{{ user }}"
         mode: '0644'
-      become: true
-
-    - name: DEBUG
-      command: ls -l /var/www/html
-      register: debug
-      become: true
-
-    - debug: msg="{{ debug.stdout }}"
 
     - name: Download and installs all libs and dependencies outlined in the composer.lock
       composer:
         command: install
         working_dir: /var/www/html
-      become: true
