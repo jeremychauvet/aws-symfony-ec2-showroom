@@ -14,9 +14,6 @@ variable "tags" {
 }
 
 # Compute.
-variable "ami_id" {
-  description = "ID of AMI to use."
-}
 
 variable "instance_type" {
   description = "Type of instance used."
