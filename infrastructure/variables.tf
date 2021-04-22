@@ -17,7 +17,7 @@ variable "tags" {
 
 variable "instance_type" {
   description = "Type of instance used."
-  default     = "c5.large"
+  default     = "m5a.large"
 }
 
 # DNS.
