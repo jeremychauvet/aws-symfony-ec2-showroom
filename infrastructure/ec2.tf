@@ -18,30 +18,30 @@ module "sg_http" {
   number_of_computed_egress_rules = 3
 }
 
-// resource "aws_launch_template" "symfony" {
-//   image_id      = data.aws_ami.symfony_web_image.id
-//   instance_type = var.instance_type
-//   key_name      = "symfony"
-//   update_default_version = true
+resource "aws_launch_template" "symfony" {
+  image_id      = data.aws_ami.symfony_web_image.id
+  instance_type = var.instance_type
+  key_name      = "symfony"
+  update_default_version = true
 
-//   iam_instance_profile {
-//     arn = aws_iam_instance_profile.ec2.arn
-//   }
+  iam_instance_profile {
+    arn = aws_iam_instance_profile.ec2.arn
+  }
 
-//   network_interfaces {
-//     security_groups = [module.sg_http.this_security_group_id]
-//   }
+  network_interfaces {
+    security_groups = [module.sg_http.this_security_group_id]
+  }
 
-//   tag_specifications {
-//     resource_type = "instance"
-//     tags          = var.tags
-//   }
+  tag_specifications {
+    resource_type = "instance"
+    tags          = var.tags
+  }
 
-//   metadata_options {
-//     http_endpoint = "enabled"
-//     http_tokens   = "required"
-//   }
-// }
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+}
 
 resource "aws_launch_configuration" "symfony" {
   image_id      = data.aws_ami.symfony_web_image.id
