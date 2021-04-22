@@ -19,13 +19,16 @@ module "sg_http" {
 }
 
 resource "aws_launch_template" "symfony" {
-  //image_id = var.ami_id
   image_id      = data.aws_ami.symfony_web_image.id
   instance_type = var.instance_type
   key_name      = "symfony"
 
-  instance_market_options {
-    market_type = "spot"
+  // instance_market_options {
+  //   market_type = "spot"
+  // }
+
+  iam_instance_profile {
+    arn = aws_iam_instance_profile.ec2.arn
   }
 
   network_interfaces {
