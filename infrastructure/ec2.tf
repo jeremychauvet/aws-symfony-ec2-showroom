@@ -27,6 +27,8 @@ resource "aws_launch_template" "symfony" {
   //   market_type = "spot"
   // }
 
+  update_default_version = true
+
   iam_instance_profile {
     arn = aws_iam_instance_profile.ec2.arn
   }
