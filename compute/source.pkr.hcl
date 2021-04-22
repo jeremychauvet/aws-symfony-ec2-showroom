@@ -13,7 +13,7 @@ source "amazon-ebs" "symfony" {
   ami_name      = "symfony-web-image"
   ssh_username  = "ubuntu"
   encrypt_boot  = true
-  kms_key_id    = "alias/packer"
+  kms_key_id    = "alias/custom/ebs"
   instance_type = "c5.large"
   source_ami    = data.amazon-ami.ubuntu.id
   region        = "us-east-1"
