@@ -2,7 +2,7 @@
 - name: 'Provision AMI'
   hosts: default
   vars:
-    app_version: 1.0.0
+    app_version: 1.1.1
     user: ubuntu
 
   tasks:
@@ -64,23 +64,31 @@
         remote_src: yes
       become: true
 
-    - name: Create cache folder to avoid create errors
+    - name: Create folders to avoid errors
       file:
-        path: /var/www/html/var/cache
+        path: "/var/www/html/var/{{ item }}"
         state: directory
         recurse: yes
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: '0644'
+      with_items:
+        - cache/prod
+        - log
       become: true
 
     - name: Download and installs all libs and dependencies outlined in the composer.lock
-      shell: cd /var/www/html && composer install
+      shell: cd /var/www/html && composer update && composer install
+      become: true
+
+    - name: Activate Apache rewrite engine
+      shell: a2enmod rewrite
       become: true
 
     - name: Change group and permissions
-      shell: chmod -R 777 "{{ item }}" && chown -R ubuntu:ubuntu "{{ item }}"
+      shell: "chmod -R 777 {{ item }} && chown -R {{ user }}:{{ user }} {{ item }}"
       with_items:
         - /var/www/html
+        - /var/www/html/var/
         - /etc/apache2/sites-enabled
       become: true
