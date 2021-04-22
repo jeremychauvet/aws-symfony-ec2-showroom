@@ -1,5 +1,6 @@
 data "aws_caller_identity" "current" {}
 
+# Fault Injection Service.
 resource "aws_iam_policy" "fis" {
   name   = "dev.fis.policy"
   policy = file("policies/dev.fis.policy.json")
@@ -16,13 +17,30 @@ resource "aws_iam_role_policy_attachment" "fis" {
   policy_arn = aws_iam_policy.fis.arn
 }
 
-resource "aws_iam_role" "system_manager" {
-  name               = "dev.system_manager_role"
-  description        = "Role to attach to the managed instance."
-  assume_role_policy = file("policies/dev.system_manager.policy.json")
+# System Manager
+resource "aws_iam_instance_profile" "ec2" {
+  name = "dev.ec2-ssm-cloudwatch.profile"
+  role = aws_iam_role.ssm.name
 }
 
-resource "aws_iam_role_policy_attachment" "system_manager" {
-  role       = aws_iam_role.system_manager.name
+resource "aws_iam_role" "ssm" {
+  name               = "dev.ssm.role"
+  description        = "Role to attach to the managed instance."
+  assume_role_policy = file("policies/dev.ssm.policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "ssm" {
+  role       = aws_iam_role.ssm.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch" {
+  role       = aws_iam_role.ssm.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
+
+# ASG.
+resource "aws_iam_service_linked_role" "asg" {
+  aws_service_name = "autoscaling.amazonaws.com"
+  custom_suffix    = "CMK"
 }
