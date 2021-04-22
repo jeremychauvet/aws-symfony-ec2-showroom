@@ -4,35 +4,37 @@ resource "aws_placement_group" "cluster" {
 }
 
 # AZa.
-resource "aws_autoscaling_group" "aza" {
-  name                 = "dev.aza.aws_autoscaling_group"
-  max_size             = 4
-  min_size             = 1
-  force_delete         = true
-  placement_group      = aws_placement_group.cluster.id
-  termination_policies = ["OldestInstance"]
+// resource "aws_autoscaling_group" "aza" {
+//   name                 = "dev.aza.aws_autoscaling_group"
+//   max_size             = 4
+//   min_size             = 1
+//   force_delete         = true
+//   placement_group      = aws_placement_group.cluster.id
+//   termination_policies = ["OldestInstance"]
 
-  launch_template {
-    id      = aws_launch_template.symfony.id
-    version = "$Latest"
-  }
+//   launch_template {
+//     id      = aws_launch_template.symfony.id
+//     version = "$Latest"
+//   }
 
-  // Launch instances in private subnet of AZa.
-  vpc_zone_identifier = [module.vpc.private_subnets[0]]
+//   service_linked_role_arn = aws_iam_service_linked_role.asg.arn
 
-  timeouts {
-    delete = "5m"
-  }
+//   // Launch instances in private subnet of AZa.
+//   vpc_zone_identifier = [module.vpc.private_subnets[0]]
 
-  lifecycle {
-    ignore_changes = [load_balancers, target_group_arns]
-  }
-}
+//   timeouts {
+//     delete = "5m"
+//   }
 
-resource "aws_autoscaling_attachment" "asg_attachment_alb_aza" {
-  autoscaling_group_name = aws_autoscaling_group.aza.id
-  alb_target_group_arn   = aws_lb_target_group.aza.arn
-}
+//   lifecycle {
+//     ignore_changes = [load_balancers, target_group_arns]
+//   }
+// }
+
+// resource "aws_autoscaling_attachment" "asg_attachment_alb_aza" {
+//   autoscaling_group_name = aws_autoscaling_group.aza.id
+//   alb_target_group_arn   = aws_lb_target_group.aza.arn
+// }
 
 # AZb.
 // resource "aws_autoscaling_group" "azb" {
