@@ -39,6 +39,16 @@ resource "aws_iam_role_policy_attachment" "cloudwatch" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
+resource "aws_iam_policy" "kms" {
+  name   = "dev.kms.policy"
+  policy = file("policies/dev.kms.policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "kms" {
+  role       = aws_iam_role.ssm.name
+  policy_arn = aws_iam_policy.kms.arn
+}
+
 # ASG.
 resource "aws_iam_service_linked_role" "asg" {
   aws_service_name = "autoscaling.amazonaws.com"

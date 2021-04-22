@@ -1,0 +1,11 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowUsageOfKMSEBSKey",
+      "Action": "kms:*",
+      "Effect": "Allow",
+      "Resource": "arn:aws:kms:us-east-1:438231055637:key/c1476f4f-fe7b-4c91-bc4b-fded760c4cbe"
+    }
+  ]
+}
