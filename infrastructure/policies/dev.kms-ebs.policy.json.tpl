@@ -6,7 +6,7 @@
       "Sid": "Enable IAM User Permissions",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam:::root"
+        "AWS": "arn:aws:iam::${aws_account_id}:root"
       },
       "Action": "kms:*",
       "Resource": "*"
@@ -15,7 +15,10 @@
       "Sid": "Allow access for Key Administrators",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam:::user/jeremy.chauvet"
+        "AWS": [
+          "arn:aws:iam::${aws_account_id}:user/jeremy.chauvet",
+          "arn:aws:iam::${aws_account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_CMK"
+        ]
       },
       "Action": [
         "kms:Create*",
@@ -40,7 +43,7 @@
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "arn:aws:iam:::role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_CMK"
+          "arn:aws:iam::${aws_account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_CMK"
         ]
       },
       "Action": [
@@ -57,7 +60,7 @@
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "arn:aws:iam:::role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_CMK"
+          "arn:aws:iam::${aws_account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_CMK"
         ]
       },
       "Action": [

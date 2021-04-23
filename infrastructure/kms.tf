@@ -3,7 +3,7 @@ resource "aws_kms_key" "ebs" {
   deletion_window_in_days = 10
   enable_key_rotation     = true
   tags                    = var.tags
-  policy                  = file("policies/dev.kms-ebs.policy.json")
+  policy                  = templatefile("./policies/dev.kms-ebs.policy.json.tpl", { aws_account_id = data.aws_caller_identity.current.account_id })
 }
 
 resource "aws_kms_alias" "ebs" {
