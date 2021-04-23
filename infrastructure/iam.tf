@@ -18,35 +18,25 @@ resource "aws_iam_role_policy_attachment" "fis" {
 }
 
 # System Manager
-resource "aws_iam_instance_profile" "ec2" {
-  name = "dev.ec2-ssm-cloudwatch.profile"
-  role = aws_iam_role.ssm.name
+resource "aws_iam_instance_profile" "asg" {
+  name = "dev.asg.profile"
+  role = aws_iam_role.asg.name
 }
 
-resource "aws_iam_role" "ssm" {
-  name               = "dev.ssm.role"
-  description        = "Role to attach to the managed instance."
-  assume_role_policy = file("policies/dev.ssm.policy.json")
+resource "aws_iam_role" "asg" {
+  name               = "dev.asg.role"
+  description        = "Role to attach to instances launch by ASG."
+  assume_role_policy = file("policies/dev.asg.policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "ssm" {
-  role       = aws_iam_role.ssm.name
+  role       = aws_iam_role.asg.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
 resource "aws_iam_role_policy_attachment" "cloudwatch" {
-  role       = aws_iam_role.ssm.name
+  role       = aws_iam_role.asg.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-}
-
-resource "aws_iam_policy" "kms" {
-  name   = "dev.kms.policy"
-  policy = file("policies/dev.kms.policy.json")
-}
-
-resource "aws_iam_role_policy_attachment" "kms" {
-  role       = aws_iam_role.ssm.name
-  policy_arn = aws_iam_policy.kms.arn
 }
 
 # ASG.
