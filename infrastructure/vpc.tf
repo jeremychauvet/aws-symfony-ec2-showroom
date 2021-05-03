@@ -29,6 +29,7 @@ module "vpc" {
   tags = var.tags
 }
 
+# Endpoints.
 resource "aws_vpc_endpoint" "ssm" {
   vpc_id              = module.vpc.vpc_id
   service_name        = "com.amazonaws.${var.aws_region}.ssm"
@@ -76,8 +77,7 @@ resource "aws_vpc_endpoint" "ec2" {
   security_group_ids  = [module.sg_http.this_security_group_id]
   subnet_ids          = module.vpc.private_subnets
   private_dns_enabled = true
-
-  tags = var.tags
+  tags                = var.tags
 }
 
 resource "aws_vpc_endpoint" "s3" {
