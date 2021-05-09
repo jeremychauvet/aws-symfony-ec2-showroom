@@ -20,7 +20,7 @@ module "sg_http" {
   computed_ingress_with_source_security_group_id = [
     {
       rule                     = "ssh-tcp"
-      source_security_group_id = "${module.sg_bastion.this_security_group_id}"
+      source_security_group_id = module.sg_bastion.this_security_group_id
     }
   ]
   number_of_computed_ingress_with_source_security_group_id = 1
@@ -50,6 +50,7 @@ resource "aws_launch_configuration" "symfony" {
   image_id      = data.aws_ami.symfony_web_image.id
   instance_type = var.instance_type
   key_name      = "bastion"
+  name          = "Symfony web server"
 
   iam_instance_profile = aws_iam_instance_profile.asg.arn
   security_groups      = [module.sg_http.this_security_group_id]
@@ -118,7 +119,9 @@ resource "aws_instance" "bastion" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [module.sg_bastion.this_security_group_id]
   subnet_id                   = module.vpc.public_subnets[0]
-  tags                        = var.tags
+  tags = merge(var.tags, {
+    IsAvailableForChaosMonkey = "false"
+  })
   root_block_device {
     encrypted = true
   }
