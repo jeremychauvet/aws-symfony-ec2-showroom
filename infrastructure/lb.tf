@@ -25,18 +25,18 @@ resource "aws_lb_target_group" "aza" {
   }
 }
 
-// resource "aws_lb_target_group" "azb" {
-//   name        = "dev-main-alb-azb-tg"
-//   port        = 80
-//   protocol    = "HTTP"
-//   target_type = "instance"
-//   vpc_id      = module.vpc.vpc_id
+resource "aws_lb_target_group" "azb" {
+  name        = "dev-main-alb-azb-tg"
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "instance"
+  vpc_id      = module.vpc.vpc_id
 
-//   health_check {
-//     port     = 80
-//     protocol = "HTTP"
-//   }
-// }
+  health_check {
+    port     = 80
+    protocol = "HTTP"
+  }
+}
 
 resource "aws_lb_listener" "https" {
   #checkov:skip=CKV_AWS_103:Ensure that load balancer is using TLS 1.2
